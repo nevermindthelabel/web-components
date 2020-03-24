@@ -41,7 +41,7 @@ class TodoItem extends HTMLElement {
     this.$checkbox.addEventListener('click', e => {
       this.dispatchEvent(new CustomEvent('onToggle', { detail: this.index }));
     });
+  }
 }
-
 
 window.customElements.define('to-do-item', TodoItem);
