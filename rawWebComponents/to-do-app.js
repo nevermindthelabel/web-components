@@ -43,7 +43,6 @@ class TodoApp extends HTMLElement {
 
   _addTodo() {
     if (this.$input.value.length > 0) {
-      console.log('clicked')
       this._todos.push({ text: this.$input.value, checked: false })
       this._renderTodoList();
       this.$input.value = '';
