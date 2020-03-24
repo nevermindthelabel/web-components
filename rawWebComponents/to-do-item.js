@@ -42,6 +42,34 @@ class TodoItem extends HTMLElement {
       this.dispatchEvent(new CustomEvent('onToggle', { detail: this.index }));
     });
   }
+
+  connectedCallback() {
+    /* We set a default attribute here; if our end user has not provided one
+    the element will display 'placeholder' text instead */
+    if (!this.hasAttribute('text')) {
+      this.setAttribute('text', 'placeholder');
+    }
+    this._renderTodoItem();
+  }
+
+  _renderTodoItem() {
+    if (this.hasAttribute('checked')) {
+      this.$item.classList.add('completed');
+      this.$checkbox.setAttribute('checked');
+    } else {
+      this.$item.classList.remove('completed');
+      this.$checkbox.removeAttribute('checked');
+    }
+    this.$text.innerHTML = this._text;
+  }
+
+  static get observedAttributes() {
+    return ['text'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    this._text = newValue;
+  }
 }
 
 window.customElements.define('to-do-item', TodoItem);
