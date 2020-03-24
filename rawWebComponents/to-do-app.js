@@ -1,3 +1,5 @@
+import './to-do-item.js';
+
 const template = document.createElement('template');
 template.innerHTML = `
 <style>
@@ -53,8 +55,12 @@ class TodoApp extends HTMLElement {
     this.$todoList.innerHTML = '';
 
     this._todos.forEach((todo, index) => {
-      let $todoItem = document.createElement('div');
-      $todoItem.innerHTML = todo.text;
+      let $todoItem = document.createElement('to-do-item');
+      $todoItem.setAttribute('text', todo.text);
+      // if todo item is checked, set the attrubute to true. If not, omit it
+      if (todo.checked) {
+        $todoItem.setAttribute('checked', '')
+      }
       this.$todoList.appendChild($todoItem);
     });
   }
