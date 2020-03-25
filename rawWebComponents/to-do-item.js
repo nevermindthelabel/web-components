@@ -64,11 +64,18 @@ class TodoItem extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['text'];
+    return ['text', 'checked'];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    this._text = newValue;
+    switch (name) {
+      case 'text':
+        this._text = newValue;
+        break;
+      case 'checked':
+        this._checked = this.hasAttribute('checked');
+        break;
+    }
   }
 }
 
