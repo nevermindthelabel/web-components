@@ -74,9 +74,9 @@ class TodoApp extends HTMLElement {
   }
 }
 
-document.querySelector('to-do-app')._todos = [
+window.customElements.define('to-do-app', TodoApp);
+
+document.querySelector('to-do-app').todos = [
   { text: "Make a to-do list", checked: false },
   { text: "Finish blog post", checked: false }
 ];
-
-window.customElements.define('to-do-app', TodoApp);
