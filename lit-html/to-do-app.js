@@ -1,4 +1,4 @@
-import { html, render }from '../node_modules/lit-html/lit-html.js';
+import { html, render } from '../node_modules/lit-html/lit-html.js';
 
 class TodoApp extends HTMLElement {
   constructor() {
@@ -14,10 +14,32 @@ class TodoApp extends HTMLElement {
     ];
 
     render(this.template(), this._shadowRoot, { eventContext: this });
+
+    this.$input = this._shadowRoot.querySelector('input');
+  }
+
+  _removeTodo(e) {
+    this.todos = this.todos.filter((todo, index) => {
+      return index !== e.detail;
+    });
+  }
+
+  _toggleTodo(e) {
+    this.todos = this.todos.map((todo, index) => {
+      return index === e.detail ? { ...todo, checked: !todo.checked } : todo;
+    });
+  }
+
+  _addTodo(e) {
+    e.preventDefault();
+    if (this.$input.value.length > 0) {
+      this.todos = [ ...this.todos, { text: this.$input.value, checked: false }];
+      this.$input.value = '';
+    }
   }
 
   template() {
-    return html `
+    return html`
     <style>
       :host {
         display: block;
@@ -33,8 +55,12 @@ class TodoApp extends HTMLElement {
         list-style: none;
         padding: 0;
       }
-    </style>
-    ${this.todos.forEach(todo => console.log(todo.text))}
+      </style>
+    <h1>
+      <ul>
+        ${this.todos.map(todo => html`<li>${todo.text}</li>`)}
+      </ul>
+    </h1>
     `
   }
 }
