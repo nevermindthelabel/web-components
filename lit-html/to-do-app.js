@@ -32,6 +32,7 @@ class TodoApp extends HTMLElement {
 
   _addTodo(e) {
     e.preventDefault();
+    console.log('clicked')
     if (this.$input.value.length > 0) {
       this.todos = [ ...this.todos, { text: this.$input.value, checked: false }];
       this.$input.value = '';
@@ -46,6 +47,9 @@ class TodoApp extends HTMLElement {
         font-family: sans-serif;
         text-align: center;
       }
+      h1 {
+        margin: 3em auto;
+      }
       button {
         border: none;
         cursor: pointer;
@@ -56,11 +60,11 @@ class TodoApp extends HTMLElement {
         padding: 0;
       }
       </style>
-    <h1>
-      <ul>
-        ${this.todos.map(todo => html`<li>${todo.text}</li>`)}
-      </ul>
-    </h1>
+      <h1>Lit-HTML Todo</h1>
+      <form id="todo-input">
+        <input type="text" placeholder="Add a new Todo"/>
+        <button @click="${this._addTodo}">✅</button>
+      </form>
     `
   }
 }
