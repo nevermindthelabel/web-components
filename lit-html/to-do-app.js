@@ -48,7 +48,7 @@ class TodoApp extends HTMLElement {
         text-align: center;
       }
       h1 {
-        margin: 3em auto;
+        margin: 3em auto 1em;
       }
       button {
         border: none;
@@ -65,6 +65,13 @@ class TodoApp extends HTMLElement {
         <input type="text" placeholder="Add a new Todo"/>
         <button @click="${this._addTodo}">✅</button>
       </form>
+      <ul id="todos">
+        ${this.todos.map((todo, index) => html `
+          <to-do-item>
+
+          </to-do-item>
+        `)}
+      </ul>
     `
   }
 }
