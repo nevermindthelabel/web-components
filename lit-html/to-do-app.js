@@ -1,4 +1,5 @@
 import { html, render } from '../node_modules/lit-html/lit-html.js';
+import './to-do-item.js';
 
 class TodoApp extends HTMLElement {
   constructor() {
