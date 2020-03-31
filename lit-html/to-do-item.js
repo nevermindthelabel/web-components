@@ -6,6 +6,13 @@ class TodoItem extends HTMLElement {
     this._shadowRoot = this.attachShadow({ 'mode': 'open' });
   }
 
+  connectedCallback() {
+    if(!this.hasAttribute('text')) {
+      this.setAttribute('text', 'placeholder');
+    }
+    render(this.template(), this._shadowRoot, { eventContext: this });
+  }
+
   template() {
     return html `
 
