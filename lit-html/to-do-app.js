@@ -33,7 +33,6 @@ class TodoApp extends HTMLElement {
 
   _addTodo(e) {
     e.preventDefault();
-    console.log('clicked')
     if (this.$input.value.length > 0) {
       this.todos = [ ...this.todos, { text: this.$input.value, checked: false }];
       this.$input.value = '';
@@ -68,12 +67,24 @@ class TodoApp extends HTMLElement {
       </form>
       <ul id="todos">
         ${this.todos.map((todo, index) => html `
-          <to-do-item>
-
+          <to-do-item
+          ?checked=${todo.checked}
+          .index=${index}
+          text=${todo.text}
+          @onRemove=${this._removeTodo}
+          @onToggle=${this._toggleTodo}
+          >
           </to-do-item>
         `)}
       </ul>
     `
+  }
+  set todos(value) {
+    this._todos = value;
+    render(this.template(), this._shadowRoot, { eventContext: this });
+  }
+  get todos() {
+    return this._todos;
   }
 }
 
